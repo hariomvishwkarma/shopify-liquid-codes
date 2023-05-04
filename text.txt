@@ -1,0 +1,86 @@
+Shopify liquid imp code
+
+<script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
+{{ 'custom.css' | asset_url | stylesheet_tag }}
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+1. metafeild code - {%- if product.metafields.custom.svg %}{{ product.metafields.custom.svg }} {% endif -%}
+
+1.2 metafeild forloop - {% for block in section.blocks %}
+                          {% assign metafield_key = 'row_' | append: forloop.index %}
+                          {{ product.metafields.custom[metafield_key] | default: block.settings.row_content }}
+                        {% endfor %}
+--------------------------------------------------------------------------------------------------------------------------------
+
+2. image condition  - {%- if block.settings.service-img != blank -%} <img src="{{ section.settings.p-p-self-image | img_url: 'master' }}" alt="" />{% endif%}
+
+2.1 background-image - url({{ section.settings.p-p-image-banner | img_url: 'master' }});
+
+2.2 Video Tag - {{ section.settings.video-1 | video_tag: loop:"loop", muted:true, playsinline:true , autoplay:true }}
+
+================================================================================================================================
+
+
+3. forloop condition  -  {% for block in section.blocks %}{% endfor %}
+
+================================================================================================================================
+
+4. comment, end comment code - {% comment %} {% endcomment%}
+
+================================================================================================================================
+
+5. Schema code - 
+{
+  "name": "custom-multicolumn2",
+  "class": "section",
+  "tag": "section",
+  "settings": [
+       {
+         "type": "text",
+         "id": "title",
+         "default": "Multicolumn",
+         "label": "Heading"
+       },
+      ]
+   "blocks": [
+     {
+       "name": "slider service box",
+       "type": "slide",
+       "settings": [
+         {
+         "type": "text",
+         "id": "c-p-imaget-w-t-1",
+         "label": "Second H"
+       },
+       {
+         "type": "text",
+         "id": "c-p-imaget-w-t-2",
+         "label": "Second P"
+       },
+      ]
+     }
+   ],
+   "presets": [
+    {
+    "name": "Custom Section banner"
+    }
+  ]
+}
+
+================================================================================================================================
+
+6. Show live date and time - {{ 'now' | date: '%Y-%m-%d' }} at {{ 'now' | date: '%H:%M:%S' }}
+
+================================================================================================================================
+
+7. show template name -  {{ template | handleize }}
+
+================================================================================================================================
+
+8. youtube video - <div class="video_wrapper video_wrapper_full js-videoWrapper">
+    <iframe class="videoIframe js-videoIframe" src="//www.youtube.com/embed/{{ block.settings.c-video.id }}?autoplay=1&controls=1&mute=1&loop=1&playlist={{ block.settings.c-video.id }}" width="1060" height="300" frameborder="0" allowfullscreen ></iframe>
+    <button class="videoPoster js-videoPoster" data-video-type="youtube" data-video-id="{{ block.settings.c-video.id }}"></button>
+</div>
+
+================================================================================================================================
