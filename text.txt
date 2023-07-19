@@ -3,6 +3,21 @@ Shopify liquid imp code
 <script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
 {{ 'custom.css' | asset_url | stylesheet_tag }}
 
+1. metafeild code |  1.2 metafeild forloop
+2. image condition | 2.1 background-image  | 2.2 Video Tag
+3. forloop condition 
+4. show template name
+5. Schema code
+6. Show live date and time 
+7. custom CSS file attech theme.liquid
+8. custom JS file attech theme.liquid 
+9. youtube video code iframe 
+10. Amazone button click to go amezone website
+11. Collection image code
+12. image forloop more than one image( collection page par custom image add karne ki method )
+13. custom collection create code
+14- Announcement bar Slide Track
+15. Product name me kuchh hide karna he sirf home page par 
 --------------------------------------------------------------------------------------------------------------------------------
 
 1. metafeild code - {%- if product.metafields.custom.svg %}{{ product.metafields.custom.svg }} {% endif -%}
@@ -24,9 +39,11 @@ Shopify liquid imp code
 
 3. forloop condition  -  {% for block in section.blocks %}{% endfor %}
 
+   forloop css break - {% break %}
+
 ================================================================================================================================
 
-4. comment, end comment code - {% comment %} {% endcomment%}
+4. show template name -  {{ template | handleize }} | {{ template }} | {{ page.handle }}                          
 
 ================================================================================================================================
 
@@ -41,8 +58,8 @@ Shopify liquid imp code
          "id": "title",
          "default": "Multicolumn",
          "label": "Heading"
-       },
-      ]
+       }
+      ],
    "blocks": [
      {
        "name": "slider service box",
@@ -74,13 +91,167 @@ Shopify liquid imp code
 
 ================================================================================================================================
 
-7. show template name -  {{ template | handleize }}
+7. custom CSS file attech theme.liquid -  {{ 'base.css' | asset_url | stylesheet_tag }}   
 
 ================================================================================================================================
 
-8. youtube video - <div class="video_wrapper video_wrapper_full js-videoWrapper">
+8. custom JS file attech theme.liquid -  <script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
+
+================================================================================================================================
+
+9. youtube video code iframe - 
+
+<div class="video_wrapper video_wrapper_full js-videoWrapper">
     <iframe class="videoIframe js-videoIframe" src="//www.youtube.com/embed/{{ block.settings.c-video.id }}?autoplay=1&controls=1&mute=1&loop=1&playlist={{ block.settings.c-video.id }}" width="1060" height="300" frameborder="0" allowfullscreen ></iframe>
     <button class="videoPoster js-videoPoster" data-video-type="youtube" data-video-id="{{ block.settings.c-video.id }}"></button>
 </div>
 
 ================================================================================================================================
+
+10. Amazone button  click to go amezone website - 
+
+{% for tag in product.tags %}
+  {% assign productTag = tag | downcase %} 
+  {% assign newtag = tag | split: "amazon_" %}
+    {% if productTag contains 'https://' %} 
+      <form action = "{{newtag}}">
+        <input type ="submit" class = "btn" value = "Buy on Amazon">
+      </form>
+    {% endif %}
+{% endfor %}
+
+================================================================================================================================
+
+11. Collection image code- <img src="{{ collection.image_url }}" alt="Collection Banner">
+
+===================================================================================================================================
+
+12.  image forloop more than one image( collection page par custom image add karne ki method )
+
+      {% assign array_of_spec-size = product.metafields.custom.spec-size.value %}
+        {% if array_of_spec-size %}
+         {% for image_spec-size in array_of_spec-size %}
+          <img src="{{  image_spec-size | image_url }}">
+         {% endfor %}
+        {% endif %}
+
+========================================================================================================================================
+
+13. custom collection create code- 
+
+<div class="container-custom-collection">
+  {% for block in section.blocks %}
+    <div class="box-custom-collection">
+      <div class="custom-collection">
+        <p class="collection-title">{{ block.settings.collection.title }}</p>
+        <a href="{{ block.settings.collection.url }}">Shop now</a>
+      </div>
+      <div class="cus-collection-image">
+        <img src="{{ block.settings.collection | img_url: 'master' }}" alt="{{ block.settings.collection.title }}">
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "Custom Collections List",
+    "settings": [
+       
+    ],
+    "blocks": [
+     {
+       "name": "slider collection list",
+       "type": "slide",
+       "settings": [
+         {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+      ]
+     }
+   ],
+    "presets": [
+    {
+    "name": "Custom Collections List"
+    }
+  ]
+  }
+{% endschema %}
+
+========================================================================================================================================
+
+14- Announcement bar Slide Track - https://prnt.sc/koh1b3u-rdZE
+
+<style>
+  .slide-track {
+        animation: scroll var(--animationSpeed) linear infinite;
+        display: flex;
+        width: calc(160px * 16);
+    }
+     :root {
+        --animationSpeed: 18s;
+    }
+    /*Animation*/
+    
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(-150px * 6))
+        }
+    }
+  .c-announcement-bar p {
+    margin: 0 85px;
+    color: #fff;
+    
+    font-weight: bold;
+    font-size: 13px;
+}
+.main-c-announcement-bar {
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: auto;
+    background:#FA6D83;
+}
+  .c-collection-list .title-wrapper-with-link {
+    justify-content: center;
+}
+    .c-collection-list .title-wrapper-with-link h2 {
+    color:#ff00de;
+}
+</style>
+<div class="main-c-announcement-bar">
+  <div class="c-announcement-bar slide-track">
+    {{ section.settings.title }}
+    
+   
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "C Announcement Bar",
+    "settings": [
+      {
+         "type": "html",
+         "id": "title",
+         "label": "Text"
+       }
+    ]
+  }
+{% endschema %}
+
+========================================================================================================================================
+
+15.  Product name me kuchh hide karna he sirf home page par -
+   {% if template == 'index' %}
+    {{ card_product.title | escape |  split: " - Buy 1 Get 1 Free" }}  
+   {% else %}
+    {{ card_product.title | escape }}
+   {% endif %}
+
