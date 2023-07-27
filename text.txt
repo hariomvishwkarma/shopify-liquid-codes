@@ -18,6 +18,7 @@ Shopify liquid imp code
 13. custom collection create code
 14- Announcement bar Slide Track
 15. Product name me kuchh hide karna he sirf home page par 
+16. Append code 
 --------------------------------------------------------------------------------------------------------------------------------
 
 1. metafeild code - {%- if product.metafields.custom.svg %}{{ product.metafields.custom.svg }} {% endif -%}
@@ -255,3 +256,13 @@ Shopify liquid imp code
     {{ card_product.title | escape }}
    {% endif %}
 
+========================================================================================================================================
+
+16. Append code - 
+<script>
+  setTimeout(() => {
+    document.querySelector(".supercart-services").insertAdjacentHTML("beforeend","<div class='mt-2 p-4 bg-gray-200 rounded-lg' style='font-size: var(--sc-fsize);'><div><ul><li><strong>Insurance</strong>. If it leaks - we replace.</li></ul><ol><li>Extra Protection Cap</li><li>Faster Shipping</li><li>Skip The Queue Priority Handling</li></ol></div></div>");
+  document.querySelector(".supercart-serv-title span").insertAdjacentHTML("afterend","<span class='aa inline-block font-bold text-sm ml-1' style='color: var(--price_color);'><span><span class='test-product'>{{ settings.t_product.price | money_with_currency }}</span></span></span>");
+ 
+  }, "2000");
+</script>
