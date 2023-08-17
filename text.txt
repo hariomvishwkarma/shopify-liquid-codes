@@ -14,11 +14,16 @@ Shopify liquid imp code
 9. youtube video code iframe 
 10. Amazone button click to go amezone website
 11. Collection image code
-12. image forloop more than one image( collection page par custom image add karne ki method )
+12.  image forloop more than one image( collection page par custom image add karne ki method )
 13. custom collection create code
 14- Announcement bar Slide Track
-15. Product name me kuchh hide karna he sirf home page par 
 16. Append code 
+17. Show % Percentage In Sale Badge
+18. quantity unavailable class
+19. change random div order on page reload
+20. product.tags condition. add condition to individual products. 
+21. Shopify Trick To Count How Many Products In Store and In Collections
+
 --------------------------------------------------------------------------------------------------------------------------------
 
 1. metafeild code - {%- if product.metafields.custom.svg %}{{ product.metafields.custom.svg }} {% endif -%}
@@ -249,7 +254,7 @@ Shopify liquid imp code
 
 ========================================================================================================================================
 
-15.  Product name me kuchh hide karna he sirf home page par -
+15.  Product name me kuchh hide karan he home sirf home page par -
    {% if template == 'index' %}
     {{ card_product.title | escape |  split: " - Buy 1 Get 1 Free" }}  
    {% else %}
@@ -259,6 +264,8 @@ Shopify liquid imp code
 ========================================================================================================================================
 
 16. Append code - 
+
+a-
 <script>
   setTimeout(() => {
     document.querySelector(".supercart-services").insertAdjacentHTML("beforeend","<div class='mt-2 p-4 bg-gray-200 rounded-lg' style='font-size: var(--sc-fsize);'><div><ul><li><strong>Insurance</strong>. If it leaks - we replace.</li></ul><ol><li>Extra Protection Cap</li><li>Faster Shipping</li><li>Skip The Queue Priority Handling</li></ol></div></div>");
@@ -266,3 +273,74 @@ Shopify liquid imp code
  
   }, "2000");
 </script>
+
+b- 
+<script>
+ setTimeout(() => {
+            $('.custtbl').remove();
+            $('.custprice').remove();
+           document.querySelector(".supercart-services").insertAdjacentHTML("beforeend","<div class='custtbl mt-2 p-4 bg-gray-200 rounded-lg' style='font-size: var(--sc-fsize);'><div><ul><li><strong>Insurance</strong>. If it leaks - we replace.</li></ul><ol><li>Extra Protection Cap</li><li>Faster Shipping</li><li>Skip The Queue Priority Handling</li></ol></div></div>");
+           document.querySelector(".supercart-serv-title span").insertAdjacentHTML("afterend","<span class='custprice aa inline-block font-bold text-sm ml-1' style='color: var(--price_color);'><span><span class='test-product'>{{ cart.currency.symbol }}{{ settings.t_product.price | money_without_currency }}</span></span></span>");
+          var tongleon = $('.toggle-input').is(':checked'); 
+          if(tongleon == false){ $('.toggle-input').click(); }
+   }, "2000");
+   $(".product-form__submit").on('click', function() {
+     setTimeout(() => {
+            $('.custtbl').remove();
+            $('.custprice').remove();
+           document.querySelector(".supercart-services").insertAdjacentHTML("beforeend","<div class='custtbl mt-2 p-4 bg-gray-200 rounded-lg' style='font-size: var(--sc-fsize);'><div><ul><li><strong>Insurance</strong>. If it leaks - we replace.</li></ul><ol><li>Extra Protection Cap</li><li>Faster Shipping</li><li>Skip The Queue Priority Handling</li></ol></div></div>");
+           document.querySelector(".supercart-serv-title span").insertAdjacentHTML("afterend","<span class='custprice aa inline-block font-bold text-sm ml-1' style='color: var(--price_color);'><span><span class='test-product'>{{ cart.currency.symbol }}{{ settings.t_product.price | money_without_currency }}</span></span></span>");
+           var tongleon = $('.toggle-input').is(':checked'); 
+            if(tongleon == false){ $('.toggle-input').click(); }
+          }, "2000");
+  });
+</script>
+
+
+
+========================================================================================================================================
+
+17. Show % Percentage In Sale Badge
+
+Go to product-template.liquid under Sections and open the file
+Search the code
+{% if product.compare_at_price_max > product.price %}
+            <span class="badge badge--sale"><span>{{ 'products.product.on_sale' | t }}</span></span>
+          {% endif %}
+Replace the above code with below code
+
+{% if product.compare_at_price_max > product.price %}
+<span class="badge badge--sale"><span>{{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span></span>
+{% endif %}
+
+========================================================================================================================================
+
+18. quantity unavailable class
+    
+    {% unless variant.available %} xyx {% endunless %}
+
+========================================================================================================================================
+
+19. change random div order on page reload
+
+    <script>
+      var cards = $(".product-block"); //class all div order change
+    for(var i = 0; i < cards.length; i++){
+        var target = Math.floor(Math.random() * cards.length -1) + 1;
+        var target2 = Math.floor(Math.random() * cards.length -1) +1;
+        cards.eq(target).before(cards.eq(target2));
+    }      
+    </script>
+
+========================================================================================================================================
+
+20.product.tags condition. add condition to individual products.   
+   
+   {% unless product.tags contains 'hide-product' %} {% endunless %}
+
+========================================================================================================================================
+
+21. Shopify Trick To Count How Many Products In Store and In Collections
+
+    link - /admin/products/count.json | result- (ex-{"count":313})
+
