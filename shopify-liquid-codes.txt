@@ -14,7 +14,7 @@ Shopify liquid imp code
 9. youtube video code iframe 
 10. Amazone button click to go amezone website
 11. Collection image code
-12.  image forloop more than one image( collection page par custom image add karne ki method )
+12. image forloop more than one image( collection page par custom image add karne ki method )
 13. custom collection create code
 14- Announcement bar Slide Track
 16. Append code 
@@ -23,7 +23,8 @@ Shopify liquid imp code
 19. change random div order on page reload
 20. product.tags condition. add condition to individual products. 
 21. Shopify Trick To Count How Many Products In Store and In Collections
-
+22. Page redirection 
+23. collection list page show product inventry inventory - https://drive.google.com/file/d/1AvaFNAqYeApdbdciC5JbX1XbehJ10Doj/view?usp=sharing 
 --------------------------------------------------------------------------------------------------------------------------------
 
 1. metafeild code - {%- if product.metafields.custom.svg %}{{ product.metafields.custom.svg }} {% endif -%}
@@ -66,24 +67,24 @@ Shopify liquid imp code
          "label": "Heading"
        }
       ],
-   "blocks": [
-     {
-       "name": "slider service box",
-       "type": "slide",
-       "settings": [
-         {
-         "type": "text",
-         "id": "c-p-imaget-w-t-1",
-         "label": "Second H"
-       },
+      
        {
-         "type": "text",
-         "id": "c-p-imaget-w-t-2",
-         "label": "Second P"
-       },
-      ]
-     }
-   ],
+         "name": "slider service box",
+         "type": "slide",
+         "settings": [
+           {
+           "type": "text",
+           "id": "c-p-imaget-w-t-1",
+           "label": "Second H"
+         },
+         {
+           "type": "text",
+           "id": "c-p-imaget-w-t-2",
+           "label": "Second P"
+         },
+        ]
+       }
+     ],
    "presets": [
     {
     "name": "Custom Section banner"
@@ -344,3 +345,20 @@ Replace the above code with below code
 
     link - /admin/products/count.json | result- (ex-{"count":313})
 
+========================================================================================================================================
+
+22. Page redirection - 
+    
+    {% if template contains "product" %}
+      <script>window.location.replace("https://westandwillow.com/pages/custom-pet-portraits");</script> 
+    {% endif %}
+
+========================================================================================================================================
+
+23. collection list page show product inventry inventory - https://drive.google.com/file/d/1AvaFNAqYeApdbdciC5JbX1XbehJ10Doj/view?usp=sharing 
+
+    {%- assign totalProductCount = 0 -%}
+    {% for product in block.settings.collection.products %}
+     {% assign totalProductCount = totalProductCount | plus: 1 %}
+    {% endfor %}
+    <p>Total Products: {{ totalProductCount }}</p>  
