@@ -24,8 +24,11 @@ Shopify liquid imp code
 20. product.tags condition. add condition to individual products. 
 21. Shopify Trick To Count How Many Products In Store and In Collections
 22. Page redirection 
-23. collection list page show product inventry inventory - https://drive.google.com/file/d/1AvaFNAqYeApdbdciC5JbX1XbehJ10Doj/view?usp=sharing 
---------------------------------------------------------------------------------------------------------------------------------
+23. product inventry show in collection list page show - https://drive.google.com/file/d/1AvaFNAqYeApdbdciC5JbX1XbehJ10Doj/view?usp=sharing 
+24. Download pdf button code -
+25. Cart page par agar koi button(div) ko tab hide karna he jab usse relate product cart me ho. or jab vah product cart me na ho tab button show hoga. see the screenshot - https://drive.google.com/file/d/1j53Abas9MWXrBV38uEoGrCQNL-f7uGe5/view?usp=sharing
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 1. metafeild code - {%- if product.metafields.custom.svg %}{{ product.metafields.custom.svg }} {% endif -%}
 
@@ -33,7 +36,7 @@ Shopify liquid imp code
                           {% assign metafield_key = 'row_' | append: forloop.index %}
                           {{ product.metafields.custom[metafield_key] | default: block.settings.row_content }}
                         {% endfor %}
---------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
 
 2. image condition  - {%- if block.settings.service-img != blank -%} <img src="{{ section.settings.p-p-self-image | img_url: 'master' }}" alt="" />{% endif%}
 
@@ -41,7 +44,7 @@ Shopify liquid imp code
 
 2.2 Video Tag - {{ section.settings.video-1 | video_tag: loop:"loop", muted:true, playsinline:true , autoplay:true }}
 
-================================================================================================================================
+===============================================================================================================================
 
 
 3. forloop condition  -  {% for block in section.blocks %}{% endfor %}
@@ -52,7 +55,7 @@ Shopify liquid imp code
 
 4. show template name -  {{ template | handleize }} | {{ template }} | {{ page.handle }}                          
 
-================================================================================================================================
+===============================================================================================================================
 
 5. Schema code - 
 {
@@ -83,9 +86,8 @@ Shopify liquid imp code
            "label": "Second P"
          },
         ]
-       }
-     ],
-   "presets": [
+       },
+   "presets": [ 
     {
     "name": "Custom Section banner"
     }
@@ -96,15 +98,15 @@ Shopify liquid imp code
 
 6. Show live date and time - {{ 'now' | date: '%Y-%m-%d' }} at {{ 'now' | date: '%H:%M:%S' }}
 
-================================================================================================================================
+===============================================================================================================================
 
 7. custom CSS file attech theme.liquid -  {{ 'base.css' | asset_url | stylesheet_tag }}   
 
-================================================================================================================================
+===============================================================================================================================
 
 8. custom JS file attech theme.liquid -  <script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
 
-================================================================================================================================
+===============================================================================================================================
 
 9. youtube video code iframe - 
 
@@ -113,7 +115,7 @@ Shopify liquid imp code
     <button class="videoPoster js-videoPoster" data-video-type="youtube" data-video-id="{{ block.settings.c-video.id }}"></button>
 </div>
 
-================================================================================================================================
+===============================================================================================================================
 
 10. Amazone button  click to go amezone website - 
 
@@ -127,11 +129,11 @@ Shopify liquid imp code
     {% endif %}
 {% endfor %}
 
-================================================================================================================================
+===============================================================================================================================
 
 11. Collection image code- <img src="{{ collection.image_url }}" alt="Collection Banner">
 
-===================================================================================================================================
+===============================================================================================================================
 
 12.  image forloop more than one image( collection page par custom image add karne ki method )
 
@@ -142,7 +144,7 @@ Shopify liquid imp code
          {% endfor %}
         {% endif %}
 
-========================================================================================================================================
+===============================================================================================================================
 
 13. custom collection create code- 
 
@@ -187,7 +189,7 @@ Shopify liquid imp code
   }
 {% endschema %}
 
-========================================================================================================================================
+===============================================================================================================================
 
 14- Announcement bar Slide Track - https://prnt.sc/koh1b3u-rdZE
 
@@ -253,7 +255,7 @@ Shopify liquid imp code
   }
 {% endschema %}
 
-========================================================================================================================================
+===============================================================================================================================
 
 15.  Product name me kuchh hide karan he home sirf home page par -
    {% if template == 'index' %}
@@ -262,7 +264,7 @@ Shopify liquid imp code
     {{ card_product.title | escape }}
    {% endif %}
 
-========================================================================================================================================
+==============================================================================================================================
 
 16. Append code - 
 
@@ -299,7 +301,7 @@ b-
 
 
 
-========================================================================================================================================
+===============================================================================================================================
 
 17. Show % Percentage In Sale Badge
 
@@ -314,13 +316,13 @@ Replace the above code with below code
 <span class="badge badge--sale"><span>{{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span></span>
 {% endif %}
 
-========================================================================================================================================
+==============================================================================================================================
 
 18. quantity unavailable class
     
     {% unless variant.available %} xyx {% endunless %}
 
-========================================================================================================================================
+==============================================================================================================================
 
 19. change random div order on page reload
 
@@ -333,19 +335,19 @@ Replace the above code with below code
     }      
     </script>
 
-========================================================================================================================================
+==============================================================================================================================
 
 20.product.tags condition. add condition to individual products.   
    
    {% unless product.tags contains 'hide-product' %} {% endunless %}
 
-========================================================================================================================================
+==============================================================================================================================
 
 21. Shopify Trick To Count How Many Products In Store and In Collections
 
     link - /admin/products/count.json | result- (ex-{"count":313})
 
-========================================================================================================================================
+===============================================================================================================================
 
 22. Page redirection - 
     
@@ -353,12 +355,43 @@ Replace the above code with below code
       <script>window.location.replace("https://westandwillow.com/pages/custom-pet-portraits");</script> 
     {% endif %}
 
-========================================================================================================================================
+===============================================================================================================================
 
-23. collection list page show product inventry inventory - https://drive.google.com/file/d/1AvaFNAqYeApdbdciC5JbX1XbehJ10Doj/view?usp=sharing 
+23. product inventry show in collection list page show   - https://drive.google.com/file/d/1AvaFNAqYeApdbdciC5JbX1XbehJ10Doj/view?usp=sharing 
 
     {%- assign totalProductCount = 0 -%}
     {% for product in block.settings.collection.products %}
      {% assign totalProductCount = totalProductCount | plus: 1 %}
     {% endfor %}
     <p>Total Products: {{ totalProductCount }}</p>  
+
+    {{ 'Download Coupon' | link_to: 'https://cdn.shopify.com/s/files/path-to-your.pdf' }}
+ 
+===============================================================================================================================
+
+ 24. click button to view and Download pdf code - 
+    {{ 'Download Coupon' | link_to: 'https://cdn.shopify.com/s/files/path-to-your.pdf' }}
+    Or if the PDF's contents can change often but file's name remains the same:
+    {% assign pdf = 'size-chart.pdf' | file_url %}  
+    {{ 'Download Coupon' | link_to: pdf }}
+
+===============================================================================================================================
+
+25. Cart page par agar koi button(div) ko tab hide karna he jab usse relate product cart me ho. or jab vah product cart me na ho tab button show hoga. see the screenshot - https://drive.google.com/file/d/1j53Abas9MWXrBV38uEoGrCQNL-f7uGe5/view?usp=sharing
+
+ {% assign productInCart = false %}
+  {% for item in cart.items %}
+    {% if item.product.handle == product.handle %}
+      {% assign productInCart = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  {% if productInCart %} checked {% endif %}
+
+===============================================================================================================================
+
+  26. 
+
+      {% if cart.item_count > 0 %}
+        {% render 'gift-wrapping-drawer' %}
+      {% endif %}
