@@ -390,8 +390,12 @@ Replace the above code with below code
 
 ===============================================================================================================================
 
-  26. 
+  26. IF condition cart. agar cart me 0 or usse kaam product he tab show hoga.
 
       {% if cart.item_count > 0 %}
         {% render 'gift-wrapping-drawer' %}
       {% endif %}
+
+===============================================================================================================================
+
+27https://web.whatsapp.com/send/?phone=923331501485&text=I+want+to+buy+this+product%0A%0AOriginal+Silver+Crest+Full+Steel+Body+3+in+1+Electric+Juicer%2C+Chopper+and+Grinder+Machine+Heavy+Duty+%7C+Germany+Lot%0A%E2%82%A8+9.500%0Ahttps%3A%2F%2Fwww.thehypercart.com%2Fproduct%2Foriginal-silver-crest-full-steel-body-3-in-1-electric-blender-machine-heavy-duty-germany-lot%2F&type=phone_number&app_absent=0
