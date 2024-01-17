@@ -27,8 +27,17 @@ Shopify liquid imp code
 23. product inventry show in collection list page show - https://drive.google.com/file/d/1AvaFNAqYeApdbdciC5JbX1XbehJ10Doj/view?usp=sharing 
 24. Download pdf button code -
 25. Cart page par agar koi button(div) ko tab hide karna he jab usse relate product cart me ho. or jab vah product cart me na ho tab button show hoga. see the screenshot - https://drive.google.com/file/d/1j53Abas9MWXrBV38uEoGrCQNL-f7uGe5/view?usp=sharing
-
--------------------------------------------------------------------------------------------------------------------------------
+26. IF condition cart. agar cart me 0 or usse kaam product he tab show hoga.  26. IF condition cart. agar cart me 0 or usse kaam product he tab show hoga.
+27. Cart order note code 
+28. Add product through metafeild
+29. How to show product video through liquid code
+30. Custom feature collection code
+31. Option variant image add in product page(color swatch image code) -
+32. Description split method
+33. Line Item Property
+34. Product tags in javascript 
+35. Shopify buy now button remove shop pay
+--------------------------------------------------------------------------------------------------------------------------
 
 1. metafeild code - {%- if product.metafields.custom.svg %}{{ product.metafields.custom.svg }} {% endif -%}
 
@@ -36,26 +45,24 @@ Shopify liquid imp code
                           {% assign metafield_key = 'row_' | append: forloop.index %}
                           {{ product.metafields.custom[metafield_key] | default: block.settings.row_content }}
                         {% endfor %}
--------------------------------------------------------------------------------------------------------------------------------
-
+--------------------------------------------------------------------------------------------------------------------------
 2. image condition  - {%- if block.settings.service-img != blank -%} <img src="{{ section.settings.p-p-self-image | img_url: 'master' }}" alt="" />{% endif%}
 
 2.1 background-image - url({{ section.settings.p-p-image-banner | img_url: 'master' }});
 
 2.2 Video Tag - {{ section.settings.video-1 | video_tag: loop:"loop", muted:true, playsinline:true , autoplay:true }}
 
-===============================================================================================================================
-
+==========================================================================================================================
 
 3. forloop condition  -  {% for block in section.blocks %}{% endfor %}
 
    forloop css break - {% break %}
 
-================================================================================================================================
+==========================================================================================================================
 
 4. show template name -  {{ template | handleize }} | {{ template }} | {{ page.handle }}                          
 
-===============================================================================================================================
+==========================================================================================================================
 
 5. Schema code - 
 {
@@ -94,19 +101,19 @@ Shopify liquid imp code
   ]
 }
 
-================================================================================================================================
+==========================================================================================================================
 
 6. Show live date and time - {{ 'now' | date: '%Y-%m-%d' }} at {{ 'now' | date: '%H:%M:%S' }}
 
-===============================================================================================================================
+==========================================================================================================================
 
 7. custom CSS file attech theme.liquid -  {{ 'base.css' | asset_url | stylesheet_tag }}   
 
-===============================================================================================================================
+==========================================================================================================================
 
 8. custom JS file attech theme.liquid -  <script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
 
-===============================================================================================================================
+==========================================================================================================================
 
 9. youtube video code iframe - 
 
@@ -115,7 +122,7 @@ Shopify liquid imp code
     <button class="videoPoster js-videoPoster" data-video-type="youtube" data-video-id="{{ block.settings.c-video.id }}"></button>
 </div>
 
-===============================================================================================================================
+==========================================================================================================================
 
 10. Amazone button  click to go amezone website - 
 
@@ -129,11 +136,11 @@ Shopify liquid imp code
     {% endif %}
 {% endfor %}
 
-===============================================================================================================================
+==========================================================================================================================
 
 11. Collection image code- <img src="{{ collection.image_url }}" alt="Collection Banner">
 
-===============================================================================================================================
+==========================================================================================================================
 
 12.  image forloop more than one image( collection page par custom image add karne ki method )
 
@@ -144,7 +151,7 @@ Shopify liquid imp code
          {% endfor %}
         {% endif %}
 
-===============================================================================================================================
+==========================================================================================================================
 
 13. custom collection create code- 
 
@@ -189,7 +196,7 @@ Shopify liquid imp code
   }
 {% endschema %}
 
-===============================================================================================================================
+==========================================================================================================================
 
 14- Announcement bar Slide Track - https://prnt.sc/koh1b3u-rdZE
 
@@ -255,7 +262,7 @@ Shopify liquid imp code
   }
 {% endschema %}
 
-===============================================================================================================================
+==========================================================================================================================
 
 15.  Product name me kuchh hide karan he home sirf home page par -
    {% if template == 'index' %}
@@ -264,14 +271,15 @@ Shopify liquid imp code
     {{ card_product.title | escape }}
    {% endif %}
 
-==============================================================================================================================
+==========================================================================================================================
 
 16. Append code - 
 
-a-
+a-$(".append-price-pop").append('<span class="add-append-pop" data-price>{{- current_variant.price | money -}}{%- if settings.currency_code_enabled %} {{ cart.currency.iso_code }}{% endif -%}</span>');
+
 <script>
   setTimeout(() => {
-    document.querySelector(".supercart-services").insertAdjacentHTML("beforeend","<div class='mt-2 p-4 bg-gray-200 rounded-lg' style='font-size: var(--sc-fsize);'><div><ul><li><strong>Insurance</strong>. If it leaks - we replace.</li></ul><ol><li>Extra Protection Cap</li><li>Faster Shipping</li><li>Skip The Queue Priority Handling</li></ol></div></div>");
+    document.querySelector(".supercart-services").insertAdjacentHTML("beforeend","<div></div>");
   document.querySelector(".supercart-serv-title span").insertAdjacentHTML("afterend","<span class='aa inline-block font-bold text-sm ml-1' style='color: var(--price_color);'><span><span class='test-product'>{{ settings.t_product.price | money_with_currency }}</span></span></span>");
  
   }, "2000");
@@ -301,7 +309,7 @@ b-
 
 
 
-===============================================================================================================================
+==========================================================================================================================
 
 17. Show % Percentage In Sale Badge
 
@@ -316,13 +324,13 @@ Replace the above code with below code
 <span class="badge badge--sale"><span>{{ product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'}}%</span></span>
 {% endif %}
 
-==============================================================================================================================
+==========================================================================================================================
 
 18. quantity unavailable class
     
     {% unless variant.available %} xyx {% endunless %}
 
-==============================================================================================================================
+==========================================================================================================================
 
 19. change random div order on page reload
 
@@ -335,19 +343,19 @@ Replace the above code with below code
     }      
     </script>
 
-==============================================================================================================================
+==========================================================================================================================
 
 20.product.tags condition. add condition to individual products.   
    
    {% unless product.tags contains 'hide-product' %} {% endunless %}
 
-==============================================================================================================================
+==========================================================================================================================
 
 21. Shopify Trick To Count How Many Products In Store and In Collections
 
     link - /admin/products/count.json | result- (ex-{"count":313})
 
-===============================================================================================================================
+==========================================================================================================================
 
 22. Page redirection - 
     
@@ -355,7 +363,7 @@ Replace the above code with below code
       <script>window.location.replace("https://westandwillow.com/pages/custom-pet-portraits");</script> 
     {% endif %}
 
-===============================================================================================================================
+==========================================================================================================================
 
 23. product inventry show in collection list page show   - https://drive.google.com/file/d/1AvaFNAqYeApdbdciC5JbX1XbehJ10Doj/view?usp=sharing 
 
@@ -367,7 +375,7 @@ Replace the above code with below code
 
     {{ 'Download Coupon' | link_to: 'https://cdn.shopify.com/s/files/path-to-your.pdf' }}
  
-===============================================================================================================================
+==========================================================================================================================
 
  24. click button to view and Download pdf code - 
     {{ 'Download Coupon' | link_to: 'https://cdn.shopify.com/s/files/path-to-your.pdf' }}
@@ -375,7 +383,7 @@ Replace the above code with below code
     {% assign pdf = 'size-chart.pdf' | file_url %}  
     {{ 'Download Coupon' | link_to: pdf }}
 
-===============================================================================================================================
+==========================================================================================================================
 
 25. Cart page par agar koi button(div) ko tab hide karna he jab usse relate product cart me ho. or jab vah product cart me na ho tab button show hoga. see the screenshot - https://drive.google.com/file/d/1j53Abas9MWXrBV38uEoGrCQNL-f7uGe5/view?usp=sharing
 
@@ -388,7 +396,7 @@ Replace the above code with below code
   {% endfor %}
   {% if productInCart %} checked {% endif %}
 
-===============================================================================================================================
+==========================================================================================================================
 
   26. IF condition cart. agar cart me 0 or usse kaam product he tab show hoga.
 
@@ -396,6 +404,176 @@ Replace the above code with below code
         {% render 'gift-wrapping-drawer' %}
       {% endif %}
 
-===============================================================================================================================
+==========================================================================================================================
 
-27https://web.whatsapp.com/send/?phone=923331501485&text=I+want+to+buy+this+product%0A%0AOriginal+Silver+Crest+Full+Steel+Body+3+in+1+Electric+Juicer%2C+Chopper+and+Grinder+Machine+Heavy+Duty+%7C+Germany+Lot%0A%E2%82%A8+9.500%0Ahttps%3A%2F%2Fwww.thehypercart.com%2Fproduct%2Foriginal-silver-crest-full-steel-body-3-in-1-electric-blender-machine-heavy-duty-germany-lot%2F&type=phone_number&app_absent=0
+27. Cart order note code 
+
+<span><label for="CartNote">GIFT MESSAGE</label></span>
+<textarea name="note" placeholder="Gift Message" rows="3">{{ cart.note }}</textarea> 
+
+==========================================================================================================================
+
+28. Add product through metafeild
+    {% assign cuspro = product.metafields.custom.cus_product.value %}
+    <h2>{{ cuspro.title }}</h2>
+    <span>{{ cuspro.price | money }}</span>
+    <img src="{{ cuspro | img_url: '100x100' }}" alt="" />
+
+==========================================================================================================================
+
+29. How to show product video through liquid code
+{% for media in product.media %}
+  {% case media.media_type %}
+    {% when 'video' %}
+      <div class="product-single__video">
+        {{ media | video_tag: controls: false }}
+      </div>
+  {% endcase %}
+{% endfor %}
+{% endcapture %}    
+
+==========================================================================================================================
+
+30. Custom feature collection code -
+
+{% for block in section.blocks %}
+  {%- assign collectionss = collections[block.settings.shop_service_collection] -%}
+{% endfor %}
+<div class="page-width">
+      <div class="main-cus-calender-container">   
+         <div class="cus-calender-container-product-box">
+            {%- for product in collectionss.products -%}
+                 <div class="cus-calender-container-product">
+                   <div class="custom-calendar-feature-collection">    
+                      <a href="{{ product.url }}">
+                      <img src="{{ product.featured_image | product_img_url: 'master' }}">
+                      <p>{{ product.title }}</p>
+                      </a>
+                      <!-- <span>{{ product.price | money_with_currency }}</span> -->
+                   </div>     
+                 </div>
+            {%- endfor -%}
+         </div>       
+      </div>
+</div>    
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": [
+    ],
+        "blocks": [
+     {
+       "name": "slider collection list",
+       "type": "slide",
+       "settings": [
+         {
+            "type": "collection",
+            "id": "shop_service_collection",
+            "label": "Collection"
+          }
+      ]
+     }
+   ]
+  }
+{% endschema %}
+
+==========================================================================================================================
+
+31. Option variant image add in product page(color swatch image code). variant option button image  -
+
+{% for value in option.values %}
+  <span  class="swatch swatch{{ forloop.index0 }}" value="{{ value | escape }}">{{ value }}</span>
+  {% assign selected_variant = product.selected_variant %}
+  {% for variant in product.variants %}
+    {% if variant.title contains value and variant.image %}
+      {% assign selected_variant = variant %}
+    {% endif %}
+  {% endfor %}
+  <img src="{{ selected_variant.image.src | img_url: '50x50' }}" alt="{{ selected_variant.title }}" />
+{% endfor %}
+
+
+==================================================================================================================
+
+32. Description split method
+      {% assign descriptions = product.description | split: "<!-- split -->" %}
+        <div class="product-single__description rte" itemprop="description">
+          {% if descriptions[0] != blank  %}
+                {{ descriptions[0]  }}
+          {% else %}
+                {{ product.description }}
+          {% endif %}
+        </div>
+
+======================================================================================================
+
+33. Line Item Property
+<label for="customertag">Customer Tag</label>
+<input type="text" id="customertag" name="attributes[Customer Tag]" value="{{ cart.attributes["Customer Tag"] }}" placeholder="Customer Tag">
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js&quot;></script>
+<script>
+$.ajax({
+    method: 'POST',
+    url: '/cart/update.js',
+    data: {
+        attributes: {
+            'Customer Tag': $('[name="attributes[Customer Tag]"]').val(),
+    },
+    dataType: 'json'
+});
+    $('[name="attributes[Customer Tag]"]').on('blur', function() {
+            $.ajax({
+                method: 'POST',
+                url: '/cart/update.js',
+                data: {
+                    attributes: {'Customer Tag': $(this).val()}
+                },
+                dataType: 'json'
+            });
+    });
+</script>
+
+======================================================================================================
+
+34. Product tags in javascript 
+  if (item.tags.includes('coming soon')) {
+    addToCartButton = "<input type='submit' class='disabled' disabled='disabled' value='Coming soon' />";
+  } else {
+    addToCartButton = "<input type='submit' class='disabled' disabled='disabled' value='{{ 'products.product.sold_out' | t }}' />";
+  }
+
+======================================================================================================
+
+35. Shopify buy now button remove shop pay
+.shopify-payment-button__more-options {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    background: black;
+    height: 100%;
+    margin: 0px !important;
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+}  
+button.shopify-payment-button__more-options:after {
+    content: "AFREKENEN";
+    opacity: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    top: 0;
+}
+
+button.shopify-payment-button__more-options:hover:after {
+    background: #282828;
+}
+
+.shopify-payment-button__more-options:hover {
+    opacity: 1;
+}    
