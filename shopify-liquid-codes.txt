@@ -42,6 +42,8 @@ Shopify liquid imp code
 38. custom add to cart button 38. custom add to cart button 
 39. peragraph how many word show. ek peragraph me kitne word chahiye.
 40. shopify Search bar placeholder show opacity 1
+41. Variant metafeild show in variant 
+42. center content in header
 --------------------------------------------------------------------------------------------------------------------------
 
 1. metafeild code - {%- if product.metafields.custom.svg %}{{ product.metafields.custom.svg }} {% endif -%}
@@ -662,4 +664,25 @@ slideshow-component .slideshow.banner{
 
 .field__input::placeholder {
     opacity: 1;
+}
+
+======================================================================================================
+
+41. Variant metafeild show in variant 
+
+  {%- for variant in product.variants -%}
+    {%- assign variant_value = variant.options -%}
+    {%- if variant_value contains value and variant.available -%}
+       {%- assign v_url = variant.metafields.custom.color_url.value.url -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+======================================================================================================
+
+
+  42.
+  header.header.header--middle-left {
+    display: flex;
+    justify-content: space-between;
 }
