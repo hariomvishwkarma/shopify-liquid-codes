@@ -678,11 +678,36 @@ slideshow-component .slideshow.banner{
     {%- endif -%}
   {%- endfor -%}
 
+-------------------------------------------
+
+{%- for variant in product.variants -%}
+        {%- assign variant_value = variant.options -%}
+        {%- if variant_value contains value and variant.available -%}
+           {%- assign v_url = variant.metafields.custom.variant_detail | metafield_tag -%}
+          <span class="ps-varmeta">{{ v_url }}</span>
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+--------------------------------------------
+
+
+And single ke liye 
+ <span class="ps-varmeta">{{ product.selected_or_first_available_variant.metafields.custom.variant_detail | metafield_tag }}</span>
 ======================================================================================================
 
-
-  42.
+42. 
   header.header.header--middle-left {
     display: flex;
     justify-content: space-between;
 }
+
+======================================================================================================
+
+43. Code for Discount, discount price, discount percent.
+<p class="var-price-ps">{{ variant.price | money }} <span>{{ variant.compare_at_price | money }}</span></p>
+{% assign list-price = variant.compare_at_price %}
+{% assign seling-price = variant.price %}
+{% assign discount = list-price | minus: seling-price | money %}
+{% assign discount-percent = list-price | minus: seling-price  | times:100 | divided_by:list-price %}
+<p class="var-save-ps">You Save:{{ discount-percent }}%({{ discount }})</p>
